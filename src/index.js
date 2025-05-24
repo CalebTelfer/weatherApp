@@ -1,3 +1,5 @@
+import "./styles.css"
+
 const apiKey = "BPDY2YTVTJZ39UV4D93KPV7BG"; // yes its public to client thats ok for this project
 
 let url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/[location]/[date1]/[date2]?key=YOUR_API_KEY"
