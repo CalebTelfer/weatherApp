@@ -21,11 +21,24 @@ async function getWeather(city) {
 }
 
 function getDataObject(jsonData) {
+    const celciusRadio = document.getElementById("celsius");
+    let temp;
+
+    if (celciusRadio.checked) {
+        temp = fahrenheitToCelsius(jsonData.currentConditions.temp);
+    } else {
+        temp = jsonData.currentConditions.temp;
+    }
+
     return {
         location: jsonData.address,
         condition: jsonData.currentConditions.conditions,
-        temperature: jsonData.currentConditions.temp
+        temperature: temp
     }
+}
+
+function fahrenheitToCelsius(fahrenheit) {
+    return (fahrenheit - 32) * 5 / 9;
 }
 
 
