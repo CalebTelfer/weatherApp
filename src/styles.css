@@ -48,3 +48,15 @@ form > input, label {
 h1,h2,h3,label, p {
     color: white;
 }
+
+.tempSystemContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5rem;
+}
+
+.tempSystemContainer > * {
+    display: flex;
+    gap: 1rem;
+}
