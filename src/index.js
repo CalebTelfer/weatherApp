@@ -5,10 +5,15 @@ let url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/ser
 async function getWeather(city) {
 
     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=${apiKey}`, {mode: 'cors'});
-    const data = await response.json();
+    const jsonData = await response.json();
+    let data = getDataObject(jsonData);
 
-    
-    const condition  = data.currentConditions.conditions;
-    const temp = data.currentConditions.temp;
-    console.log("It is "+condition+" in "+city+ " and the temperature is " +temp);
+    console.log("It is "+data.condition+" in "+city+ " and the temperature is " +data.temperature);
+}
+
+function getDataObject(jsonData) {
+    return {
+        condition: jsonData.currentConditions.conditions,
+        temperature: jsonData.currentConditions.temp
+    }
 }
