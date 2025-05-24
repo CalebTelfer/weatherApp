@@ -7,15 +7,61 @@ let url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/ser
 async function getWeather(city) {
 
     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?key=${apiKey}`, {mode: 'cors'});
+    
+    if(!response.ok) {
+        promiseFail();
+        return;
+    }
+    
     const jsonData = await response.json();
+    console.log(jsonData);
     let data = getDataObject(jsonData);
 
-    console.log("It is "+data.condition+" in "+city+ " and the temperature is " +data.temperature);
+    showWeather(data);
 }
 
 function getDataObject(jsonData) {
     return {
+        location: jsonData.address,
         condition: jsonData.currentConditions.conditions,
         temperature: jsonData.currentConditions.temp
     }
 }
+
+
+function showWeather(data) {
+    const city = document.querySelector(".city");
+    const condition = document.querySelector(".condition");
+    const temperature = document.querySelector(".temperature");
+
+    city.textContent = data.location;
+
+    condition.textContent = data.condition;
+
+    temperature.textContent = data.temperature;
+
+}
+
+function promiseFail() {
+    const city = document.querySelector(".city");
+    const condition = document.querySelector(".condition");
+    const temperature = document.querySelector(".temperature");
+
+    city.textContent = "ERROR";
+
+    condition.textContent = "Invalid Input or API fail";
+
+    temperature.textContent = "";
+}
+
+
+const form = document.querySelector("form");
+const inputBox = document.querySelector("#userInput");
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const input = inputBox.value;
+    getWeather(input);
+    inputBox.value = "";
+
+})
